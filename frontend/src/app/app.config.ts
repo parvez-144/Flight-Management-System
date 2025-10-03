@@ -1,12 +1,26 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+// app/app.config.ts
 
-import { routes } from './app.routes';
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+import { appRoutes } from './app.routes';
+
+import { AuthService } from './services/auth';
+import { FlightService } from './services/flight';
+import { BookingService } from './services/booking';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    // HTTP setup, enabling interceptors from DI
+    provideHttpClient(withInterceptorsFromDi()),
+
+    // Routing
+    provideRouter(appRoutes),
+
+    // Services
+    AuthService,
+    FlightService,
+    BookingService
   ]
 };
