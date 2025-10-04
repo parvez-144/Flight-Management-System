@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Home } from './home';
+import { RouterLink } from '@angular/router';
 
 describe('Home', () => {
   let component: Home;

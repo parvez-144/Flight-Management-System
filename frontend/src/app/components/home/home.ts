@@ -1,13 +1,14 @@
 // app/home/home.ts
 
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule,RouterLink],
   templateUrl: './home.html'
 })
 export class Home {
