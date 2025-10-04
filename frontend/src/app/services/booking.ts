@@ -1,4 +1,4 @@
-// app/services/booking.service.ts
+
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -10,12 +10,12 @@ export class BookingService {
 
   constructor(private http: HttpClient) {}
 
-  bookTicket(booking: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/book`, booking);
+  bookTicket(bookingData: { scheduleId: string; seats: number }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/book`, bookingData);
   }
 
-  cancelBooking(id: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/cancel/${id}`, {});
+  cancelBooking(bookingId: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/cancel/${bookingId}`, {});
   }
 
   getHistory(): Observable<any> {
