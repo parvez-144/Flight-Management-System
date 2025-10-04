@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule,RouterLink],
-  templateUrl: './home.html'
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
 })
 export class Home {
   constructor(private authService: AuthService, private router: Router) {}
