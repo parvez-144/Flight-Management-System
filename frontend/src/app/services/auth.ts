@@ -26,6 +26,13 @@ export class AuthService implements HttpInterceptor {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
+  //added login auth
+
+  isLoggedIn(): boolean {
+  return !!this.getToken();
+}
+
+
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }

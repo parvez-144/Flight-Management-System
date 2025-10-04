@@ -1,15 +1,30 @@
 <div class="home-container">
-  <h1 class="home-title">Welcome to Flight Management Portal</h1>
+  <h1 class="home-title">✈️ Flight Management Portal</h1>
+
+  <p class="home-subtitle">Book, manage, and explore flights with ease</p>
 
   <nav class="home-nav">
     <ul>
-      <li><a routerLink="/flights">Search Flights</a></li>
-      <li><a routerLink="/bookings/history">Booking History</a></li>
-      <li><a (click)="logout()">Logout</a></li>
+      <li *ngIf="!authService.isLoggedIn()">
+        <a routerLink="/login" class="btn-nav">Login</a>
+      </li>
+      <li *ngIf="!authService.isLoggedIn()">
+        <a routerLink="/register" class="btn-nav">Register</a>
+      </li>
+
+      <li *ngIf="authService.isLoggedIn()">
+        <a routerLink="/flights" class="btn-nav">Search Flights</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()">
+        <a routerLink="/bookings/history" class="btn-nav">Booking History</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()">
+        <a (click)="logout()" class="btn-nav logout">Logout</a>
+      </li>
     </ul>
   </nav>
 
-  <div class="home-footer">
-    <p>Manage your flights, bookings, reports & more.</p>
+  <div *ngIf="!authService.isLoggedIn()" class="home-guest-message fade-in">
+    <p>Please <strong>log in</strong> or <strong>register</strong> to access flight booking features.</p>
   </div>
 </div>

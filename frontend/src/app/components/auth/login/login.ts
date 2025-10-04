@@ -3,7 +3,7 @@
 
 
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth';  // adjust path
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,12 +11,22 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
   credentials = { username: '', password: '' };
+  passwordVisible = false;
+
+togglePassword() {
+  this.passwordVisible = !this.passwordVisible;
+  const pwdInput = document.getElementById('password') as HTMLInputElement;
+  if (pwdInput) {
+    pwdInput.type = this.passwordVisible ? 'text' : 'password';
+  }
+}
+
 
   constructor(
     private authService: AuthService,
@@ -24,6 +34,7 @@ export class LoginComponent {
   ) {}
 
   login() {
+    
     this.authService.login(this.credentials).subscribe({
       next: (res: any) => {
         console.log('Login response:', res);

@@ -1,28 +1,37 @@
-<div class="login-container">
-  <div class="login-card">
-    <h2 class="login-title">Login</h2>
-    <form (ngSubmit)="login()" class="login-form">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          [(ngModel)]="credentials.username"
-          name="username"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          [(ngModel)]="credentials.password"
-          name="password"
-          required
-        />
-      </div>
-      <button class="btn-login" type="submit">Login</button>
-    </form>
+<div class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <h2 class="login-title">Welcome Back</h2>
+      <form (ngSubmit)="login()" class="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            [(ngModel)]="credentials.username"
+            name="username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-wrapper">
+            <input
+              id="password"
+              type="password"
+              [(ngModel)]="credentials.password"
+              name="password"
+              required
+            />
+            <!-- optional “show password” toggle -->
+            <button type="button" class="toggle-pass" (click)="togglePassword()">👁</button>
+          </div>
+        </div>
+        <button class="btn-login" type="submit">Login</button>
+      </form>
+      <p class="register-link">
+        Don’t have an account? <a routerLink="/register">Register here</a>
+      </p>
+    </div>
   </div>
 </div>

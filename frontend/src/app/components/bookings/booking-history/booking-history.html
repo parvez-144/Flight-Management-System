@@ -1,9 +1,29 @@
-<!-- booking-history.html -->
+<div class="history-page">
+  <div class="history-container">
+    <h2 class="history-title">Booking History</h2>
 
-<h2>Booking History</h2>
-<ul>
-  <li *ngFor="let b of bookings">
-    Booking #{{ b.booking_id }} — Status: {{ b.status }}
-    <button *ngIf="b.status === 'CONFIRMED'" (click)="cancel(b.booking_id)">Cancel</button>
-  </li>
-</ul>
+    <ul class="booking-list" *ngIf="bookings && bookings.length > 0; else noBookings">
+      <li *ngFor="let b of bookings" class="booking-item">
+        <div class="booking-info">
+          <span class="booking-num">#{{ b.booking_id }}</span>
+          <span class="booking-status" [ngClass]="b.status.toLowerCase()">
+            {{ b.status }}
+          </span>
+        </div>
+        <div class="booking-actions">
+          <button
+            *ngIf="b.status === 'CONFIRMED'"
+            class="btn-cancel"
+            (click)="cancel(b.booking_id)"
+          >
+            Cancel
+          </button>
+        </div>
+      </li>
+    </ul>
+
+    <ng-template #noBookings>
+      <p class="no-booking-msg">You have no past bookings.</p>
+    </ng-template>
+  </div>
+</div>
