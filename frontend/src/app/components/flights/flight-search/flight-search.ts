@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   selector: 'app-flight-search',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './flight-search.html'
+  templateUrl: './flight-search.html',
+  styleUrls: ['./flight-search.css']
 })
 export class FlightSearch implements OnInit {
   flights: any[] = [];

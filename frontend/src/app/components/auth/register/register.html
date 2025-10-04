@@ -1,27 +1,61 @@
-<h2>Register</h2>
-<form (ngSubmit)="register()">
-  <div>
-    <label>Username:</label>
-    <input type="text" [(ngModel)]="user.username" name="username" required>
+<div class="register-container">
+  <div class="register-card">
+    <h2 class="register-title">Create Account</h2>
+    <form (ngSubmit)="register()" class="register-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          [(ngModel)]="user.username"
+          name="username"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="user.email"
+          name="email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="user.password"
+          name="password"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          id="phone"
+          type="text"
+          [(ngModel)]="user.phone"
+          name="phone"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select
+          id="role"
+          [(ngModel)]="user.role"
+          name="role"
+          required
+        >
+          <option value="" disabled>Select role</option>
+          <option value="PASSENGER">Passenger</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+      </div>
+      <button class="btn-register" type="submit">Register</button>
+    </form>
   </div>
-  <div>
-    <label>Email:</label>
-    <input type="email" [(ngModel)]="user.email" name="email" required>
-  </div>
-  <div>
-    <label>Password:</label>
-    <input type="password" [(ngModel)]="user.password" name="password" required>
-  </div>
-  <div>
-    <label>Phone:</label>
-    <input type="text" [(ngModel)]="user.phone" name="phone" required>
-  </div>
-  <div>
-    <label>Role:</label>
-    <select [(ngModel)]="user.role" name="role" required>
-      <option value="PASSENGER">Passenger</option>
-      <option value="ADMIN">Admin</option>
-    </select>
-  </div>
-  <button type="submit">Register</button>
-</form>
+</div>
