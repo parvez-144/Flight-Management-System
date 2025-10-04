@@ -1,0 +1,22 @@
+<!-- flight-search.html -->
+
+<h2>Search Flights</h2>
+<form (ngSubmit)="searchFlights()">
+  <div>
+    <input type="text" [(ngModel)]="search.source" name="source" placeholder="Source">
+  </div>
+  <div>
+    <input type="text" [(ngModel)]="search.destination" name="destination" placeholder="Destination">
+  </div>
+  <div>
+    <input type="date" [(ngModel)]="search.date" name="date">
+  </div>
+  <button type="submit">Search</button>
+</form>
+
+<ul>
+  <li *ngFor="let f of flights">
+    {{ f.flight.airline }} — {{ f.flight.source }} → {{ f.flight.destination }} on {{ f.schedule_date || f.date }}
+    <button (click)="book(f.schedule_id)">Book</button>
+  </li>
+</ul>
