@@ -109,7 +109,7 @@ exports.getSchedules = async (req, res) => {
 // Search Flights (Passenger & Admin)
 exports.searchFlights = async (req, res) => {
   try {
-    const { source, destination, date, airline } = req.body;
+    const { source, destination, date, airline } = req.query; // <-- from query params
 
     if (!source || !destination) {
       return res.status(400).json({ message: 'Source and destination are required' });
@@ -142,3 +142,4 @@ exports.searchFlights = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
