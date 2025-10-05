@@ -2,5 +2,5 @@
   "version": 2,
   "framework": "angular",
   "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist/frontend/browser"
+  "outputDirectory": "dist/frontend"
 }
