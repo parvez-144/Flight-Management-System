@@ -1,8 +1,8 @@
 {
-  "builds": [
-    { "src": "dist/frontend/**/*", "use": "@vercel/static" }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
+  "version": 2,
+  "framework": "angular",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist/frontend/browser",
+  "rootDirectory": "frontend"
 }
