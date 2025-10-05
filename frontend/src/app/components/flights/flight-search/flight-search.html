@@ -1,59 +1,91 @@
-<h2>Search Flights</h2>
-<form (ngSubmit)="searchFlights()">
-  <div>
-    <label>*Source:</label>
-    <input type="text" [(ngModel)]="search.source" name="source" placeholder="Source" required />
-  </div>
-  <div>
-    <label>*Destination:</label>
-    <input type="text" [(ngModel)]="search.destination" name="destination" placeholder="Destination" required />
-  </div>
-  <div>
-    <label>Date:</label>
-    <input type="date" [(ngModel)]="search.date" name="date" required />
-  </div>
-  <div>
-    <label>Airline</label>
-    <input type="text" [(ngModel)]="search.airline" name="airline" placeholder="Airline" />
-  </div>
-  <button type="submit">Search</button>
-</form>
+<div class="search-container">
+  <div class="search-card">
+    <h2 class="search-title">Search Flights</h2>
+    <form (ngSubmit)="searchFlights()" class="search-form">
+      <div class="form-group">
+        <label for="source">* Source:</label>
+        <input
+          id="source"
+          type="text"
+          [(ngModel)]="search.source"
+          name="source"
+          placeholder="Source"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="destination">* Destination:</label>
+        <input
+          id="destination"
+          type="text"
+          [(ngModel)]="search.destination"
+          name="destination"
+          placeholder="Destination"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input
+          id="date"
+          type="date"
+          [(ngModel)]="search.date"
+          name="date"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="airline">Airline:</label>
+        <input
+          id="airline"
+          type="text"
+          [(ngModel)]="search.airline"
+          name="airline"
+          placeholder="Airline (optional)"
+        />
+      </div>
+      <button class="btn-search" type="submit">Search</button>
+    </form>
 
-<!-- show booking confirmation details if any -->
-<div *ngIf="bookingResult" class="booking-confirmation">
-  <h3>Booking Confirmed!</h3>
-  <p><strong>Booking ID:</strong> {{ bookingResult._id }}</p>
-  <p><strong>Schedule:</strong> {{ bookingResult.schedule }}</p>
-  <p><strong>Seats Booked:</strong> {{ bookingResult.seatsBooked }}</p>
-  <p><strong>Booking Time:</strong> {{ bookingResult.bookingTime | date:'medium' }}</p>
+    <div *ngIf="bookingResult" class="booking-confirmation">
+      <h3>Booking Confirmed!</h3>
+      <p><strong>Booking ID:</strong> {{ bookingResult._id }}</p>
+      <p><strong>Schedule:</strong> {{ bookingResult.schedule }}</p>
+      <p><strong>Seats Booked:</strong> {{ bookingResult.seatsBooked }}</p>
+      <p><strong>Booking Time:</strong> {{ bookingResult.bookingTime | date:'medium' }}</p>
+    </div>
+
+    <div *ngIf="hasSearched" class="results-section">
+      <div *ngIf="flights.length > 0; else noResults">
+        <ul class="results-list">
+          <li *ngFor="let sch of flights" class="result-item">
+            <div class="flight-info">
+              <span class="flight-airline">{{ sch.flight.airline }}</span>
+              <span class="route">{{ sch.flight.source }} → {{ sch.flight.destination }}</span>
+            </div>
+            <div class="departure-info">
+              Departure: {{ sch.departureTime | date:'short' }}
+              <span class="seats-info">Available Seats: {{ sch.availableSeats }}</span>
+            </div>
+            <div class="book-section">
+              <label for="seats-{{ sch._id }}">Seats to book:</label>
+              <input
+                id="seats-{{ sch._id }}"
+                type="number"
+                [(ngModel)]="seatsToBook"
+                name="seatsToBook{{ sch._id }}"
+                min="1"
+                [max]="sch.availableSeats"
+              />
+              <button class="btn-book" (click)="book(sch._id || sch.id)">Book</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noResults>
+        <p class="no-results">No matching schedules found.</p>
+      </ng-template>
+    </div>
+  </div>
 </div>
 
-<!-- show search results only after a search -->
-<div *ngIf="hasSearched">
-  <div *ngIf="flights.length > 0; else noResults">
-    <ul>
-      <li *ngFor="let sch of flights">
-        <div>
-          Flight: {{ sch.flight.airline }} — {{ sch.flight.source }} → {{ sch.flight.destination }}
-        </div>
-        <div>
-          Departure: {{ sch.departureTime }} | Available Seats: {{ sch.availableSeats }}
-        </div>
-        <div>
-          <label>Seats to book:</label>
-          <input
-            type="number"
-            [(ngModel)]="seatsToBook"
-            name="seatsToBook"
-            min="1"
-            [max]="sch.availableSeats"
-          />
-        </div>
-        <button (click)="book(sch._id || sch.id)">Book</button>
-      </li>
-    </ul>
-  </div>
-  <ng-template #noResults>
-    <p>No matching schedules found.</p>
-  </ng-template>
-</div>

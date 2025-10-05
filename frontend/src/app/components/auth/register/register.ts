@@ -9,9 +9,21 @@ import { AuthService } from '../../../services/auth';
   selector: 'app-register',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './register.html'
+  templateUrl: './register.html',
+  styleUrls: ['./register.css']
 })
 export class RegisterComponent {
+
+  passwordVisible = false;
+
+togglePassword() {
+  this.passwordVisible = !this.passwordVisible;
+  const pwdElem = document.getElementById('password') as HTMLInputElement;
+  if (pwdElem) {
+    pwdElem.type = this.passwordVisible ? 'text' : 'password';
+  }
+}
+
   user = {
   username: '',
   password: '',

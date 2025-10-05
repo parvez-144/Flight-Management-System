@@ -1,0 +1,71 @@
+/* app.css */
+
+/* Global resets or box-sizing if not already present */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background: #f9fafb;
+  line-height: 1.6;
+}
+
+/* Header & navigation */
+.app-header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.3s, color 0.3s;
+  color: #334e68;
+  font-size: 1rem;
+}
+
+.main-nav a:hover {
+  background-color: #334e68;
+  color: #f9fafb;
+}
+
+/* Optionally highlight active route link */
+/* If you have routerLinkActive class or directive */
+.main-nav a.active, .main-nav a.router-link-active {
+  background-color: #1d3557;
+  color: #f9fafb;
+}
+
+/* Main content area */
+.app-main {
+  padding: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  .main-nav a {
+    margin: 0.5rem 0;
+  }
+}
