@@ -1,4 +1,7 @@
 {
+  "builds": [
+    { "src": "dist/frontend/**/*", "use": "@vercel/static" }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
