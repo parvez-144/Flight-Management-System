@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService implements HttpInterceptor {
-  private apiUrl = 'http://3.88.211.167:3000/api/auth';
+  private apiUrl = 'https://flight-management-system-xirn.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 
