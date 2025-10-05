@@ -1,10 +1,10 @@
 <div class="home-container">
   <h1 class="home-title">✈️ Flight Management Portal</h1>
-
   <p class="home-subtitle">Book, manage, and explore flights with ease</p>
 
   <nav class="home-nav">
     <ul>
+      <!-- Guest -->
       <li *ngIf="!authService.isLoggedIn()">
         <a routerLink="/login" class="btn-nav">Login</a>
       </li>
@@ -12,19 +12,39 @@
         <a routerLink="/register" class="btn-nav">Register</a>
       </li>
 
+      <!-- Logged-in user -->
       <li *ngIf="authService.isLoggedIn()">
         <a routerLink="/flights" class="btn-nav">Search Flights</a>
       </li>
       <li *ngIf="authService.isLoggedIn()">
         <a routerLink="/bookings/history" class="btn-nav">Booking History</a>
       </li>
+
+      <!-- Admin-only options -->
+      <li *ngIf="isAdmin()">
+        <a routerLink="/admin/flights" class="btn-nav">Manage Flights</a>
+      </li>
+      <li *ngIf="isAdmin()">
+        <a routerLink="/admin/schedules" class="btn-nav">Manage Schedules</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn() && isAdmin()">
+        <a routerLink="/admin/bookings" class="btn-nav">View Bookings</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn() && isAdmin()">
+        <a routerLink="/admin/reports" class="btn-nav">Reports</a>
+      </li>
+
       <li *ngIf="authService.isLoggedIn()">
         <a (click)="logout()" class="btn-nav logout">Logout</a>
       </li>
+
+
     </ul>
   </nav>
 
   <div *ngIf="!authService.isLoggedIn()" class="home-guest-message fade-in">
-    <p>Please <strong>log in</strong> or <strong>register</strong> to access flight booking features.</p>
+    <p>
+      Please <strong>log in</strong> or <strong>register</strong> to access flight booking features.
+    </p>
   </div>
 </div>

@@ -158,3 +158,29 @@ exports.getAllBookings = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getBookingsByUser = async (req, res) => {
+  try {
+    if (req.user.role !== 'ADMIN') {
+      return res.status(403).json({ message: 'Access denied. Admins only.' });
+    }
+
+    const { userId } = req.params;
+
+    const bookings = await Booking.find({ user: userId })
+      .populate('schedule')
+      .populate({
+        path: 'schedule',
+        populate: { path: 'flight' }
+      })
+      .populate('user', 'username email');
+
+    if (!bookings.length) {
+      return res.status(404).json({ message: 'No bookings found for this user' });
+    }
+
+    res.json({ bookings });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

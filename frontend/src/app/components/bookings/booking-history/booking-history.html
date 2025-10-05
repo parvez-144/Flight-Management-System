@@ -1,29 +1,40 @@
 <div class="history-page">
-  <div class="history-container">
-    <h2 class="history-title">Booking History</h2>
+  <h2 class="history-title">My Bookings</h2>
 
-    <ul class="booking-list" *ngIf="bookings && bookings.length > 0; else noBookings">
-      <li *ngFor="let b of bookings" class="booking-item">
-        <div class="booking-info">
-          <span class="booking-num">#{{ b.booking_id }}</span>
-          <span class="booking-status" [ngClass]="b.status.toLowerCase()">
-            {{ b.status }}
-          </span>
-        </div>
-        <div class="booking-actions">
-          <button
-            *ngIf="b.status === 'CONFIRMED'"
-            class="btn-cancel"
-            (click)="cancel(b.booking_id)"
-          >
-            Cancel
-          </button>
-        </div>
-      </li>
-    </ul>
+  <div *ngIf="loading" class="loading">Loading bookings...</div>
 
-    <ng-template #noBookings>
-      <p class="no-booking-msg">You have no past bookings.</p>
-    </ng-template>
+  <div *ngIf="!loading && bookings.length === 0" class="no-booking-msg">
+    You have no past bookings.
+  </div>
+
+  <div class="booking-list" *ngIf="!loading && bookings.length > 0">
+    <div class="booking-card" *ngFor="let b of bookings">
+      <div class="booking-header">
+        <div>
+          <h3>{{ b.schedule.flight.airline }}</h3>
+          <p>{{ b.schedule.flight.source }} → {{ b.schedule.flight.destination }}</p>
+        </div>
+        <span class="booking-status" [ngClass]="b.status.toLowerCase()">
+          {{ b.status }}
+        </span>
+      </div>
+
+      <div class="booking-details">
+        <p><strong>Departure:</strong> {{ b.schedule.departureTime | date:'medium' }}</p>
+        <p><strong>Arrival:</strong> {{ b.schedule.arrivalTime | date:'medium' }}</p>
+        <p><strong>Seats Booked:</strong> {{ b.seatsBooked }}</p>
+        <p><strong>Booking Time:</strong> {{ b.bookingTime | date:'medium' }}</p>
+      </div>
+
+      <div class="booking-actions">
+        <button
+          *ngIf="b.status === 'CONFIRMED'"
+          class="btn-cancel"
+          (click)="cancel(b._id)"
+        >
+          Cancel Booking
+        </button>
+      </div>
+    </div>
   </div>
 </div>

@@ -3,7 +3,8 @@ const {
   bookTicket,
   cancelBooking,
   getBookingHistory,
-  getAllBookings
+  getAllBookings,
+  getBookingsByUser
 } = require('../controllers/bookingController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
@@ -16,5 +17,7 @@ router.get('/history', getBookingHistory);
 
 // Admin route
 router.get('/all',getAllBookings);
+router.get('/user/:userId', getBookingsByUser);
+
 
 module.exports = router;

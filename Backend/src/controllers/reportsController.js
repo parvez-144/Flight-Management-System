@@ -99,7 +99,6 @@ exports.getRevenueReport = async (req, res) => {
       }
     ]);
 
-    // populate flight & schedule info
     const detailedReport = await Promise.all(
       bookings.map(async b => {
         const schedule = await Schedule.findById(b._id).populate('flight');

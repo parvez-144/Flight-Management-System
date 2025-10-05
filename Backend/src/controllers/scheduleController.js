@@ -115,9 +115,14 @@ exports.searchFlights = async (req, res) => {
       return res.status(400).json({ message: 'Source and destination are required' });
     }
 
-    // Base query for flights
-    const query = { source, destination };
-    if (airline) query.airline = airline;
+    const query = {
+      source: { $regex: new RegExp(source, 'i') },
+      destination: { $regex: new RegExp(destination, 'i') }
+    };
+
+    if (airline) {
+      query.airline = { $regex: new RegExp(airline, 'i') };
+    }
 
     const flights = await Flight.find(query);
     if (!flights.length) {
@@ -125,19 +130,19 @@ exports.searchFlights = async (req, res) => {
     }
 
     const flightIds = flights.map(f => f._id);
-
-    // Build schedule query
     const scheduleQuery = { flight: { $in: flightIds } };
+
     if (date) {
       const start = new Date(date);
       const end = new Date(date);
-      end.setDate(end.getDate() + 1);
+      end.setDate(end.getDate() + 1); // same-day range
       scheduleQuery.departureTime = { $gte: start, $lt: end };
     }
 
+    // Fetch matching schedules with flight info populated
     const schedules = await Schedule.find(scheduleQuery).populate('flight');
-    res.json({ schedules });
 
+    res.json({ schedules });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

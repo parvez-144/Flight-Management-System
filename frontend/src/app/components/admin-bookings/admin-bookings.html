@@ -1,0 +1,66 @@
+<div class="admin-bookings-container">
+  <h2>Manage Bookings</h2>
+
+  <div class="mode-toggle">
+    <button
+      [class.active]="filterMode === 'ALL'"
+      (click)="switchMode('ALL')"
+    >
+      All Bookings
+    </button>
+    <button
+      [class.active]="filterMode === 'USER'"
+      (click)="switchMode('USER')"
+    >
+      By Passenger
+    </button>
+  </div>
+
+  <div *ngIf="filterMode === 'USER'" class="search-section">
+    <input
+      type="text"
+      placeholder="Enter Passenger User ID"
+      [(ngModel)]="userId"
+      class="input-box"
+    />
+    <button (click)="loadBookings()" class="btn-search">Search</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading bookings...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+  <div *ngIf="!loading && bookings.length > 0" class="booking-table-container">
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Passenger</th>
+          <th>Airline</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Seats</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of bookings">
+          <td>{{ b._id }}</td>
+          <td>{{ b.user?.username || 'N/A' }}</td>
+          <td>{{ b.schedule?.flight?.airline }}</td>
+          <td>{{ b.schedule?.flight?.source }}</td>
+          <td>{{ b.schedule?.flight?.destination }}</td>
+          <td>{{ b.schedule?.departureTime | date: 'short' }}</td>
+          <td>{{ b.schedule?.arrivalTime | date: 'short' }}</td>
+          <td>{{ b.seatsBooked }}</td>
+          <td [ngClass]="b.status.toLowerCase()">{{ b.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="!loading && !bookings.length && !errorMsg" class="no-data">
+    No bookings found.
+  </p>
+</div>

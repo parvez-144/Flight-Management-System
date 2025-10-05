@@ -1,0 +1,148 @@
+.admin-container {
+  max-width: 950px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  text-align: center;
+  color: #1e88e5;
+  margin-bottom: 20px;
+}
+
+.form-card, .list-card {
+  background: #f9fbfc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #e3e7ea;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  margin-right: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn.primary {
+  background: #1e88e5;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #1565c0;
+}
+
+.btn.small {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.btn.danger {
+  background: #e53935;
+  color: white;
+}
+
+.btn.danger:hover {
+  background: #c62828;
+}
+
+.btn.edit {
+  background: #43a047;
+  color: white;
+}
+
+.btn.edit:hover {
+  background: #2e7d32;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.schedule-table th, .schedule-table td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.schedule-table th {
+  background: #f0f4f8;
+  font-weight: 600;
+}
+
+.no-data {
+  text-align: center;
+  color: #999;
+  padding: 10px;
+}
+
+.status-on {
+  color: #43a047;
+  font-weight: bold;
+}
+
+.status-delayed {
+  color: #f9a825;
+  font-weight: bold;
+}
+
+.status-cancelled {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.edit-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+}
+
+.popup-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}

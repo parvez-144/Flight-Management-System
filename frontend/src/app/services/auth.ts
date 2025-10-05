@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
@@ -16,6 +14,7 @@ export class AuthService implements HttpInterceptor {
 
   constructor(private http: HttpClient) {}
 
+  // --- Auth API Calls ---
   register(user: {
     username: string;
     email: string;
@@ -26,17 +25,11 @@ export class AuthService implements HttpInterceptor {
     return this.http.post(`${this.apiUrl}/register`, user);
   }
 
-  //added login auth
-
-  isLoggedIn(): boolean {
-  return !!this.getToken();
-}
-
-
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
+  // --- Token Management ---
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
@@ -45,11 +38,31 @@ export class AuthService implements HttpInterceptor {
     return localStorage.getItem('token');
   }
 
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
 
+  // --- User Persistence ---
+  saveUser(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getCurrentUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  getUserRole(): string | null {
+    const user = this.getCurrentUser();
+    return user?.role || null;
+  }
+
+  // --- Interceptor for attaching JWT ---
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.getToken();
     console.log('AuthInterceptor: token =', token, 'for request URL =', req.url);

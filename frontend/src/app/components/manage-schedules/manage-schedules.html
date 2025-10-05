@@ -1,0 +1,123 @@
+<div class="admin-container">
+  <h2>🗓️ Manage Schedules</h2>
+
+  <div class="form-card">
+    <h3>Add New Schedule</h3>
+    <form (ngSubmit)="addSchedule()">
+      <div class="form-group">
+        <label>Flight:</label>
+        <select [(ngModel)]="newSchedule.flight" name="flight" required>
+          <option value="">-- Select Flight --</option>
+          <option *ngFor="let f of flights" [value]="f._id">
+            {{ f.airline }} ({{ f.source }} → {{ f.destination }})
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Departure Time:</label>
+        <input type="datetime-local" [(ngModel)]="newSchedule.departureTime" name="departureTime" required />
+      </div>
+
+      <div class="form-group">
+        <label>Arrival Time:</label>
+        <input type="datetime-local" [(ngModel)]="newSchedule.arrivalTime" name="arrivalTime" required />
+      </div>
+
+      <div class="form-group">
+        <label>Available Seats:</label>
+        <input type="number" [(ngModel)]="newSchedule.availableSeats" name="availableSeats" min="1" required />
+      </div>
+
+      <div class="form-group">
+        <label>Status:</label>
+        <select [(ngModel)]="newSchedule.status" name="status" required>
+          <option value="ON_TIME">ON_TIME</option>
+          <option value="DELAYED">DELAYED</option>
+          <option value="CANCELLED">CANCELLED</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn primary">Add Schedule</button>
+    </form>
+  </div>
+
+  <div class="list-card">
+    <h3>Existing Schedules</h3>
+
+    <table class="flight-table" *ngIf="schedules.length > 0; else noSchedules">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Seats</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of schedules">
+          <td>{{ s.flight?.airline }} ({{ s.flight?.source }} → {{ s.flight?.destination }})</td>
+          <td>{{ s.departureTime | date:'short' }}</td>
+          <td>{{ s.arrivalTime | date:'short' }}</td>
+          <td>{{ s.availableSeats }}</td>
+          <td>{{ s.status }}</td>
+          <td>
+            <button class="btn small edit" (click)="startEdit(s)">Edit</button>
+            <button class="btn small danger" (click)="deleteSchedule(s._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noSchedules>
+      <p class="no-data">No schedules found.</p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="editingSchedule" class="edit-popup">
+    <div class="popup-content">
+      <h3>Edit Schedule</h3>
+      <form (ngSubmit)="saveEdit()">
+        <div class="form-group">
+          <label>Flight:</label>
+          <select [(ngModel)]="editingSchedule.flight" name="editFlight" required>
+            <option *ngFor="let f of flights" [value]="f._id">
+              {{ f.airline }} ({{ f.source }} → {{ f.destination }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Departure Time:</label>
+          <input type="datetime-local" [(ngModel)]="editingSchedule.departureTime" name="editDeparture" required />
+        </div>
+
+        <div class="form-group">
+          <label>Arrival Time:</label>
+          <input type="datetime-local" [(ngModel)]="editingSchedule.arrivalTime" name="editArrival" required />
+        </div>
+
+        <div class="form-group">
+          <label>Available Seats:</label>
+          <input type="number" [(ngModel)]="editingSchedule.availableSeats" name="editSeats" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label>Status:</label>
+          <select [(ngModel)]="editingSchedule.status" name="editStatus" required>
+            <option value="ON_TIME">ON_TIME</option>
+            <option value="DELAYED">DELAYED</option>
+            <option value="CANCELLED">CANCELLED</option>
+          </select>
+        </div>
+
+        <div class="popup-actions">
+          <button type="submit" class="btn primary">Save</button>
+          <button type="button" class="btn" (click)="editingSchedule = null">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

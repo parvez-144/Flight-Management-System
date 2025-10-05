@@ -1,0 +1,93 @@
+<div class="report-container">
+  <h2>📊 Admin Reports</h2>
+
+  <div class="report-select">
+    <label>Select Report Type:</label>
+    <select [(ngModel)]="selectedReport">
+      <option value="">-- Select Report Type --</option>
+      <option value="occupancy">Flight Occupancy</option>
+      <option value="cancellations">Cancellations</option>
+      <option value="revenue">Revenue</option>
+    </select>
+  </div>
+
+  <div *ngIf="selectedReport === 'occupancy'" class="schedule-input">
+    <input
+      type="text"
+      [(ngModel)]="scheduleId"
+      placeholder="Enter Schedule ID"
+    />
+  </div>
+
+  <button (click)="generateReport()">Generate Report</button>
+
+  <div *ngIf="loading" class="loading">Generating report...</div>
+
+  <!-- OCCUPANCY REPORT -->
+  <div *ngIf="selectedReport === 'occupancy' && data && !loading" class="report-output">
+    <h3>Flight Occupancy Report</h3>
+    <table>
+      <tr><th>Flight</th><td>{{ data.flight }}</td></tr>
+      <tr><th>Route</th><td>{{ data.route }}</td></tr>
+      <tr><th>Departure</th><td>{{ data.departure | date:'medium' }}</td></tr>
+      <tr><th>Total Seats</th><td>{{ data.totalSeats }}</td></tr>
+      <tr><th>Booked Seats</th><td>{{ data.bookedSeats }}</td></tr>
+      <tr><th>Available Seats</th><td>{{ data.availableSeats }}</td></tr>
+      <tr><th>Occupancy Rate</th><td>{{ data.occupancyRate }}</td></tr>
+    </table>
+  </div>
+
+  <!-- CANCELLATIONS REPORT -->
+  <div *ngIf="selectedReport === 'cancellations' && data && !loading" class="report-output">
+    <h3>Cancellations Report</h3>
+    <p><strong>Total Cancellations:</strong> {{ data.totalCancellations }}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Airline</th>
+          <th>Route</th>
+          <th>Departure</th>
+          <th>Seats</th>
+          <th>Cancelled At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of data.cancellations">
+          <td>{{ c.bookingId }}</td>
+          <td>{{ c.airline }}</td>
+          <td>{{ c.route }}</td>
+          <td>{{ c.departure | date:'medium' }}</td>
+          <td>{{ c.seatsBooked }}</td>
+          <td>{{ c.cancelledAt | date:'medium' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- REVENUE REPORT -->
+  <div *ngIf="selectedReport === 'revenue' && data && !loading" class="report-output">
+    <h3>Revenue Report</h3>
+    <p><strong>Total Revenue:</strong> ₹{{ data.totalRevenue | number }}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Airline</th>
+          <th>Route</th>
+          <th>Departure</th>
+          <th>Seats Booked</th>
+          <th>Revenue (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of data.report">
+          <td>{{ r.airline }}</td>
+          <td>{{ r.route }}</td>
+          <td>{{ r.departure | date:'medium' }}</td>
+          <td>{{ r.totalSeatsBooked }}</td>
+          <td>{{ r.revenue | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

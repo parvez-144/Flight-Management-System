@@ -1,0 +1,94 @@
+<div class="admin-container">
+  <h2>🛫 Manage Flights</h2>
+
+  <div class="form-card">
+    <h3>Add New Flight</h3>
+    <form (ngSubmit)="addFlight()" #flightForm="ngForm">
+      <div class="form-group">
+        <label>Airline:</label>
+        <input type="text" [(ngModel)]="newFlight.airline" name="airline" required />
+      </div>
+
+      <div class="form-group">
+        <label>Source:</label>
+        <input type="text" [(ngModel)]="newFlight.source" name="source" required />
+      </div>
+
+      <div class="form-group">
+        <label>Destination:</label>
+        <input type="text" [(ngModel)]="newFlight.destination" name="destination" required />
+      </div>
+
+      <div class="form-group">
+        <label>Total Seats:</label>
+        <input type="number" [(ngModel)]="newFlight.totalSeats" name="totalSeats" min="1" required />
+      </div>
+
+      <button type="submit" class="btn primary">Add Flight</button>
+    </form>
+  </div>
+
+  <div class="list-card">
+    <h3>Existing Flights</h3>
+
+    <table class="flight-table" *ngIf="flights.length > 0; else noFlights">
+      <thead>
+        <tr>
+          <th>Airline</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Total Seats</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of flights">
+          <td>{{ f.airline }}</td>
+          <td>{{ f.source }}</td>
+          <td>{{ f.destination }}</td>
+          <td>{{ f.totalSeats }}</td>
+          <td>
+            <button class="btn small edit" (click)="startEdit(f)">Edit</button>
+            <button class="btn small danger" (click)="deleteFlight(f._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noFlights>
+      <p class="no-data">No flights found.</p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="editingFlight" class="edit-popup">
+    <div class="popup-content">
+      <h3>Edit Flight</h3>
+      <form (ngSubmit)="saveEdit()">
+        <div class="form-group">
+          <label>Airline:</label>
+          <input type="text" [(ngModel)]="editingFlight.airline" name="editAirline" required />
+        </div>
+
+        <div class="form-group">
+          <label>Source:</label>
+          <input type="text" [(ngModel)]="editingFlight.source" name="editSource" required />
+        </div>
+
+        <div class="form-group">
+          <label>Destination:</label>
+          <input type="text" [(ngModel)]="editingFlight.destination" name="editDestination" required />
+        </div>
+
+        <div class="form-group">
+          <label>Total Seats:</label>
+          <input type="number" [(ngModel)]="editingFlight.totalSeats" name="editSeats" min="1" required />
+        </div>
+
+        <div class="popup-actions">
+          <button type="submit" class="btn primary">Save</button>
+          <button type="button" class="btn" (click)="editingFlight = null">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
