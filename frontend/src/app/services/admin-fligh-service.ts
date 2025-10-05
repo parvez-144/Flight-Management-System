@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AdminFlightService {
-  private apiUrl = 'http://localhost:3000/api/flights';
+  private apiUrl = 'http://3.88.211.167:3000/api/flights';
 
   constructor(private http: HttpClient) {}
 

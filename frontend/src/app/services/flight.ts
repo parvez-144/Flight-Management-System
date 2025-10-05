@@ -11,7 +11,7 @@ export interface FlightSearchParams {
 
 @Injectable({ providedIn: 'root' })
 export class FlightService {
-  private apiUrl = 'http://localhost:3000/api/schedules';
+  private apiUrl = 'http://3.88.211.167:3000/api/schedules';
 
   constructor(private http: HttpClient) {}
 

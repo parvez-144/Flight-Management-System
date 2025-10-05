@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
-  private apiUrl = 'http://localhost:3000/api/bookings';
+  private apiUrl = 'http://3.88.211.167:3000/api/bookings';
 
   constructor(private http: HttpClient) { }
 
