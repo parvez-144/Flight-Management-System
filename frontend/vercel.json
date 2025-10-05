@@ -1,6 +1,6 @@
 {
   "version": 2,
   "framework": "angular",
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist/frontend/browser"
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist/frontend/browser"
 }
